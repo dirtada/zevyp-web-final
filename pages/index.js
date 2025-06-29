@@ -1,49 +1,56 @@
-import { useState, useEffect } from 'react';
+import Image from "next/image";
 
 export default function Home() {
-  const [headline, setHeadline] = useState('Zemní a výkopové práce');
-  const [subtext, setSubtext] = useState('Výkopy, zásypy a terénní úpravy s profesionálním přístupem.');
-  const [editMode, setEditMode] = useState(false);
-  const [auth, setAuth] = useState(false);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-  useEffect(() => {
-    if (window.location.pathname.includes('/admin')) {
-      setEditMode(true);
-    }
-  }, []);
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (username === 'bagry' && password === 'bagry') {
-      setAuth(true);
-    } else {
-      alert('Nesprávné přihlašovací údaje');
-    }
-  };
-
   return (
-    <div className="min-h-screen p-10 font-sans bg-yellow-50 text-gray-900">
-      <h1 className="text-4xl font-bold text-center mb-6">{headline}</h1>
-      <p className="text-lg text-center mb-10">{subtext}</p>
-
-      {editMode && !auth && (
-        <form onSubmit={handleLogin} className="max-w-sm mx-auto space-y-4">
-          <input className="w-full p-2 border" placeholder="Uživatelské jméno" value={username} onChange={(e) => setUsername(e.target.value)} />
-          <input className="w-full p-2 border" type="password" placeholder="Heslo" value={password} onChange={(e) => setPassword(e.target.value)} />
-          <button className="w-full p-2 bg-black text-white">Přihlásit se</button>
-        </form>
-      )}
-
-      {editMode && auth && (
-        <div className="max-w-xl mx-auto space-y-4">
-          <input className="w-full p-2 border" value={headline} onChange={(e) => setHeadline(e.target.value)} />
-          <textarea className="w-full p-2 border" value={subtext} onChange={(e) => setSubtext(e.target.value)} />
+    <div className="min-h-screen bg-[#f9c600] font-sans text-gray-900">
+      <header className="bg-black text-white py-6 px-4 flex justify-between items-center">
+        <div className="flex items-center gap-3">
+          <div className="bg-yellow-400 w-10 h-10 rounded-sm"></div>
+          <h1 className="text-2xl font-extrabold">ZEVYP.CZ</h1>
         </div>
-      )}
+        <nav className="space-x-4 text-lg">
+          <a href="#" className="hover:underline">NAŠE SLUŽBY</a>
+          <a href="#" className="hover:underline">TECHNIKA</a>
+          <a href="#" className="hover:underline">CENÍK</a>
+          <a href="#" className="hover:underline">KONTAKT</a>
+        </nav>
+      </header>
 
-      <div className="mt-20 text-center text-sm text-gray-500">© {new Date().getFullYear()} Zevyp.cz</div>
+      <main className="bg-black text-white px-4 py-12 text-center">
+        <h2 className="text-5xl font-extrabold mb-4">ZEMNÍ A VÝKOPOVÉ PRÁCE</h2>
+        <p className="text-lg mb-6">Provádíme zemní a výkopové práce pomocí pásového rypadla.</p>
+        <div className="flex justify-center">
+          <Image
+            src="/images/hitachi-zx48u.png"
+            alt="Bagr"
+            width={600}
+            height={400}
+            className="rounded"
+          />
+        </div>
+      </main>
+
+      <section className="bg-[#f9c600] text-black px-6 py-12">
+        <h3 className="text-3xl font-bold mb-6 text-center">NAŠE SLUŽBY</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xl max-w-3xl mx-auto">
+          <div className="flex items-center gap-2">
+            <span>✔️</span>
+            <p>Výkopy základů</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <span>✔️</span>
+            <p>Zásypy a zasypávání</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <span>✔️</span>
+            <p>Zarovnání terénu</p>
+          </div>
+        </div>
+      </section>
+
+      <footer className="bg-black text-white text-center py-4">
+        © {new Date().getFullYear()} ZEVYP.CZ – Zemní a výkopové práce
+      </footer>
     </div>
   );
 }
